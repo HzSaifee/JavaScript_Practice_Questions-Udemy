@@ -5,6 +5,28 @@
 // maxChar("abcccccccd") === "c"
 // maxChar("apple 1231111") === "1"
 
-function maxChar(str) {}
+function maxChar(str) {
+    const arr = str.split('').sort();
+    max = 0;
+    k = 0;
+    max_count = [1];
+    max_char = arr[0];
+    for(i = 1, j = 0; i < str.length; ++i){
+        if(arr[i] === max_char[j])
+           max_count[j]++;
+        else{
+            ++j;
+            max_char[j] = arr[i];
+            max_count[j] = 1;
+        }
+    }
+    for (i = 0; i < max_count.length; ++i){
+        if(max_count[i] > max){
+            max = max_count[i];
+            k = i;
+        }
+    }
+    return max_char[k];
+}
 
 module.exports = maxChar;
