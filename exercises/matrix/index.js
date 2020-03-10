@@ -15,6 +15,46 @@
 //     [11, 16, 15, 6],
 //     [10,  9,  8, 7]]
 
-function matrix(n) {}
+function matrix(n) {
+    new_array = [];
+    for(i=0;i<n;++i)
+        new_array[i] = [];
+    row0_col1 = 0;
+    right0_left1 = 0;
+    down0_up1 = 0;
+    for(i = 0, j = 0, count = 1; count <= n*n; count++){
+        new_array[i][j] = count;
+        if(row0_col1 == 0){
+            if(right0_left1 == 0)
+                ++j;
+            else
+                --j;
+            if(j == n-1-i){
+                row0_col1 = 1;
+                if(right0_left1 == 0)
+                    down0_up1 = 0;
+                else
+                    down0_up1 = 1;
+            }
+        }
+        else{
+            if(down0_up1 == 0){
+                ++i;
+                if(i == j){
+                    row0_col1 = 0;
+                    right0_left1 = 1;
+                }
+            }
+            else{
+                --i;
+                if(i == j+1){
+                    row0_col1 = 0;
+                    right0_left1 = 0;
+                }
+            }
+        }
+    }
+    return new_array;
+}
 
 module.exports = matrix;
