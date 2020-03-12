@@ -38,6 +38,9 @@ class LinkedList {
 
   getLast(){
     let node = this.head;
+    
+    if(!node)
+    return null;
 
     while(node.next)
       node = node.next;
@@ -70,6 +73,48 @@ class LinkedList {
     
     node.next = null;
   }
+
+  insertLast(data){
+    let node = new Node(data);
+    let existingNode = this.getLast();
+
+    if(!existingNode)
+      this.head = node;
+    else
+    existingNode.next = node;
+  }
+
+  getAt(number){
+    let node = this.head;
+
+    for(let i = 0; i < number; ++i){
+      if(!node)
+        return null;
+      node = node.next;
+    }
+
+    return node;
+  }
+
+  removeAt(number){
+    if(number < 0)
+      return;
+    
+    let node = this.getAt(number);
+
+    if(!node)
+      return;
+
+    if(number == 0){
+      this.head = node.next;
+      return;
+    }
+    
+    let pNode = this.getAt(number - 1);
+    pNode.next = node.next;
+  }
+
+  
 }
 
 module.exports = { Node, LinkedList };
