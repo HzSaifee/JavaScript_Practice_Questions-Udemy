@@ -96,25 +96,52 @@ class LinkedList {
     return node;
   }
 
-  removeAt(number){
-    if(number < 0)
+  removeAt(index){
+    if(index < 0)
       return;
     
-    let node = this.getAt(number);
+    let node = this.getAt(index);
 
     if(!node)
       return;
 
-    if(number == 0){
+    if(index == 0){
       this.head = node.next;
       return;
     }
     
-    let pNode = this.getAt(number - 1);
+    let pNode = this.getAt(index - 1);
     pNode.next = node.next;
   }
 
-  
+  insertAt(data, index){
+    if(index < 0)
+      return;
+    
+    let node = new Node(data);
+    
+    if(index == 0){
+      node.next = this.head;
+      this.head = node;
+      return;
+    }
+
+    let pNode = this.getAt(index - 1) || this.getLast();
+    node.next = pNode.next;
+    pNode.next = node;
+  }
+
+  forEach(fn){
+    let node = this.head;
+    
+    if(!node)
+      return;
+
+    while(node){
+      fn(node);
+      node = node.next;
+    }
+  }
 }
 
 module.exports = { Node, LinkedList };
